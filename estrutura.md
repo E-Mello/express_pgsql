@@ -14,7 +14,6 @@ project-root/
 ├── services/
 ├── routes/
 ├── server.js
-└── docs/
 ```
 
 ---
