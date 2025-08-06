@@ -1,10 +1,8 @@
-// config/db.js
 import dotenv from "dotenv";
 import pkg from "pg";
 const { Pool } = pkg;
 
 dotenv.config();
-console.log("password teste", process.env.PGPASSWORD);
 
 const pool = new Pool({
   host: process.env.PGHOST,

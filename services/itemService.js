@@ -1,4 +1,3 @@
-// services/itemService.js
 import pool from "../config/db.js";
 
 /**

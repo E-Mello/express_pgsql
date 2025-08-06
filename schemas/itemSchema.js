@@ -1,4 +1,3 @@
-// schemas/itemSchema.js
 import { z, ZodError } from "zod";
 
 export const createItemSchema = z.object({
