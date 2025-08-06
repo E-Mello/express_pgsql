@@ -55,6 +55,20 @@ router.put("/items/:id", async (req, res) => {
   }
 });
 
+router.patch("/items/:id", async (req, res) => {
+  try {
+    // valida só os campos que vieram
+    const data = updateItemSchema.parse(req.body);
+    const item = await service.patchItem(req.params.id, data);
+    if (!item) return res.status(404).json({ error: "Item não encontrado" });
+    res.json(item);
+  } catch (err) {
+    if (err instanceof ZodError)
+      return res.status(400).json({ errors: err.errors });
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.delete("/items/:id", async (req, res) => {
   try {
     await service.deleteItem(req.params.id);

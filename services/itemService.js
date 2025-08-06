@@ -40,6 +40,23 @@ export async function updateItem(id, { name, quantity }) {
   return rows[0];
 }
 
+export async function patchItem(id, fields) {
+  const keys = Object.keys(fields);
+  const values = Object.values(fields);
+  if (keys.length === 0) return await getItemById(id);
+
+  // monta "name = $1, quantity = $2" etc.
+  const setString = keys.map((k, i) => `${k} = $${i + 1}`).join(", ");
+  const query = `
+    UPDATE items
+    SET ${setString}
+    WHERE id = $${keys.length + 1}
+    RETURNING *`;
+
+  const { rows } = await pool.query(query, [...values, id]);
+  return rows[0];
+}
+
 export async function deleteItem(id) {
   await pool.query(
     `DELETE FROM items
